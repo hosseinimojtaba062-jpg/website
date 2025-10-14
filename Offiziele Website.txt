@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GartenProfi - Professionelle Gartenpflege & Hochdruckreinigung</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000000;   /* Schwarz */
+            --secondary: #DD0000; /* Rot */
+            --accent: #FFCE00;    /* Gelb */
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23000000" width="1200" height="600"/><circle fill="%23DD0000" cx="200" cy="150" r="80" opacity="0.3"/><circle fill="%23FFCE00" cx="800" cy="300" r="120" opacity="0.2"/><circle fill="%23DD0000" cx="1000" cy="100" r="60" opacity="0.4"/><rect fill="%23222" x="0" y="500" width="1200" height="100"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary);
+        }
+        
+        .contact-form input, 
+        .contact-form textarea,
+        .contact-form select {
+            transition: all 0.3s ease;
+            border: 1px solid #d1d5db;
+        }
+        
+        .contact-form input:focus, 
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(221, 0, 0, 0.2);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(to bottom right, #f9f9f9, #f0f0f0);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .floating-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #c00000;
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent);
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e6b800;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .color-stripe {
+            height: 8px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- Farbstreifen oben -->
+    <div class="color-stripe"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-2xl z-50 p-6">
+        <button id="closeMenu" class="absolute top-4 right-4 text-gray-600 hover:text-red-600">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mt-12 space-y-6">
+            <a href="#home" class="block text-lg font-medium text-gray-800 hover:text-red-600">Startseite</a>
+            <a href="#services" class="block text-lg font-medium text-gray-800 hover:text-red-600">Leistungen</a>
+            <a href="#about" class="block text-lg font-medium text-gray-800 hover:text-red-600">Über uns</a>
+            <a href="#testimonials" class="block text-lg font-medium text-gray-800 hover:text-red-600">Kundenstimmen</a>
+            <a href="#contact" class="block text-lg font-medium text-gray-800 hover:text-red-600">Kontakt</a>
+        </div>
+        <div class="mt-12 pt-6 border-t border-gray-200">
+            <button class="w-full btn-primary py-3 rounded-lg font-semibold transition-colors">
+                Kostenlose Beratung
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-yellow-400 text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-black">Garten<span class="text-red-600">Profi</span></span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-red-600 font-medium transition-colors py-2">Startseite</a>
+                    <a href="#services" class="text-gray-700 hover:text-red-600 font-medium transition-colors py-2">Leistungen</a>
+                    <a href="#about" class="text-gray-700 hover:text-red-600 font-medium transition-colors py-2">Über uns</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-red-600 font-medium transition-colors py-2">Kundenstimmen</a>
+                    <a href="#contact" class="text-gray-700 hover:text-red-600 font-medium transition-colors py-2">Kontakt</a>
+                </nav>
+                
+                <!-- CTA Button -->
+                <div class="flex items-center space-x-4">
+                    <button class="hidden md:block btn-primary px-5 py-2 rounded-lg font-medium">
+                        Kostenlose Beratung
+                    </button>
+                    <button id="menuButton" class="md:hidden text-gray-700 hover:text-red-600">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <div class="inline-block bg-red-600 text-white px-4 py-1 rounded-full mb-4 text-sm font-medium">
+                <i class="fas fa-star mr-2"></i>Seit 2008 Ihr vertrauter Gartenservice
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-3xl mx-auto">Ihr Garten in <span class="text-yellow-400">besten</span> Händen!</h1>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                Professionelle Gartenpflege, Hochdruckreinigung und Unkrautentfernung für makellose Außenbereiche
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="btn-secondary px-8 py-4 rounded-lg text-lg font-semibold shadow-lg">
+                    <i class="fas fa-calendar-check mr-2"></i>Jetzt Termin vereinbaren
+                </button>
+                <a href="#services" class="bg-black text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-tools mr-2"></i>Unsere Leistungen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Unsere Premium-Leistungen</h2>
+                <p class="text-gray-600">Komplettservice für Ihren Garten - professionell und zuverlässig</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-white p-6 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tree text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Gartenpflege</h3>
+                    <p class="text-gray-600 mb-4">Professionelle Pflege für gesunde und ästhetische Gärten</p>
+                    <ul class="text-left text-sm text-gray-600 space-y-1 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Rasenpflege & Düngung
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Hecken- und Baumschnitt
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Pflanzungen und Bepflanzung
+                        </li>
+                    </ul>
+                    <button class="text-red-600 font-medium text-sm hover:underline">
+                        Details anzeigen
+                    </button>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-white p-6 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tint text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Hochdruckreinigung</h3>
+                    <p class="text-gray-600 mb-4">Effektive Reinigung von Terrassen, Wegen und Fassaden</p>
+                    <ul class="text-left text-sm text-gray-600 space-y-1 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Terrassen und Gehwege
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Einfahrten und Garagenplätze
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Fassaden und Zäune
+                        </li>
+                    </ul>
+                    <button class="text-red-600 font-medium text-sm hover:underline">
+                        Details anzeigen
+                    </button>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-white p-6 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-seedling text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Unkrautentfernung</h3>
+                    <p class="text-gray-600 mb-4">Nachhaltige Beseitigung von unerwünschtem Bewuchs</p>
+                    <ul class="text-left text-sm text-gray-600 space-y-1 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Fugenreinigung mechanisch/thermisch
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Ökologische Verfahren
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Vorbeugende Maßnahmen
+                        </li>
+                    </ul>
+                    <button class="text-red-600 font-medium text-sm hover:underline">
+                        Details anzeigen
+                    </button>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card bg-white p-6 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lightbulb text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Beratung & Planung</h3>
+                    <p class="text-gray-600 mb-4">Individuelle Lösungen für Ihre Gartenprojekte</p>
+                    <ul class="text-left text-sm text-gray-600 space-y-1 mb-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Gartenkonzeption
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Bepflanzungspläne
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-red-600 mr-2 mt-0.5"></i>
+                            Pflegekonzepte
+                        </li>
+                    </ul>
+                    <button class="text-red-600 font-medium text-sm hover:underline">
+                        Details anzeigen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 section-title">Ihre Gartenexperten seit über 15 Jahren</h2>
+                    <p class="text-gray-600 text-lg mb-4">
+                        Als GartenProfi setzen wir seit 2008 Maßstäbe in professioneller Gartenpflege und Außenreinigung. 
+                        Unser erfahrenes Team kombiniert handwerkliches Können mit modernster Technik für Ergebnisse, die überzeugen.
+                    </p>
+                    <p class="text-gray-600 text-lg mb-4">
+                        Wir arbeiten ausschließlich mit ökologisch verträglichen Methoden und Materialien, um Ihre Grünflächen 
+                        und die Umwelt gleichermaßen zu schonen.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-thumbs-up text-red-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-red-600">100%</div>
+                                <div class="text-gray-600">Zufriedenheit</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-users text-red-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-red-600">12</div>
+                                <div class="text-gray-600">Experten</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <button class="btn-primary px-6 py-3 rounded-lg font-semibold">
+                            <i class="fas fa-users mr-2"></i>Unser Team kennenlernen
+                        </button>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 bg-gray-200 rounded-xl overflow-hidden aspect-video">
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-r from-yellow-50 to-red-50">
+                        <div class="text-center p-6">
+                            <i class="fas fa-images text-gray-400 text-5xl mx-auto mb-4"></i>
+                            <p class="text-gray-500">Bilder unserer Projekte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Was unsere Kunden sagen</h2>
+                <p class="text-gray-600">Über 500 zufriedene Kunden in der Region</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "GartenProfi hat unsere verwilderte Terrasse in ein Schmuckstück verwandelt. Die Hochdruckreinigung war gründlicher als erwartet und der Preis fair. Absolut empfehlenswert!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Monika Bauer</div>
+                            <div class="text-sm text-gray-500">Musterstadt</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Die monatliche Gartenpflege durch GartenProfi ist die beste Investition, die wir für unser Zuhause gemacht haben. Immer pünktlich, sauber gearbeitet und unsere Pflanzen gedeihen prächtig!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Thomas Weber</div>
+                            <div class="text-sm text-gray-500">Musterdorf</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Die ökologische Unkrautentfernung war ein Game-Changer für uns! Endlich eine Lösung, die funktioniert und dabei unsere Haustiere nicht gefährdet. Danke GartenProfi!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 mr-3 flex items-center justify-center">
+                            <i class="fas fa-user text-gray-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Sabine Hoffmann</div>
+                            <div class="text-sm text-gray-500">Musterberg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gradient-to-br from-yellow-50 to-red-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Kontaktieren Sie uns</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Wir beraten Sie gerne persönlich und erstellen Ihnen ein unverbindliches Angebot</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Kostenlose Anfrage</h3>
+                    <form class="contact-form space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Vorname *</label>
+                                <input type="text" class="w-full px-4 py-3 border rounded-lg" placeholder="Ihr Vorname" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Nachname *</label>
+                                <input type="text" class="w-full px-4 py-3 border rounded-lg" placeholder="Ihr Nachname" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">E-Mail *</label>
+                                <input type="email" class="w-full px-4 py-3 border rounded-lg" placeholder="ihre.email@beispiel.de" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Telefon</label>
+                                <input type="tel" class="w-full px-4 py-3 border rounded-lg" placeholder="+49 (0) 123 456 789">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Interessierte Leistung *</label>
+                            <select class="w-full px-4 py-3 border rounded-lg" required>
+                                <option value="" disabled selected>Bitte auswählen</option>
+                                <option>Gartenpflege</option>
+                                <option>Hochdruckreinigung</option>
+                                <option>Unkrautentfernung</option>
+                                <option>Beratung & Planung</option>
+                                <option>Kombi-Paket</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Nachricht *</label>
+                            <textarea rows="5" class="w-full px-4 py-3 border rounded-lg" placeholder="Beschreiben Sie Ihr Anliegen..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full btn-primary py-4 rounded-lg font-semibold text-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>Anfrage senden
+                        </button>
+                        <p class="text-sm text-gray-500 text-center">* Pflichtfelder. Wir behandeln Ihre Daten vertraulich.</p>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">So erreichen Sie uns</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Adresse</h4>
+                                    <p class="text-gray-600">Gartenstraße 24<br>12345 Musterstadt</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                    <i class="fas fa-phone-alt text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Telefon & E-Mail</h4>
+                                    <p class="text-gray-600">+49 (0) 123 456 789<br>info@gartenprofi.de</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                    <i class="fas fa-clock text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Öffnungszeiten</h4>
+                                    <p class="text-gray-600">Mo-Fr: 8:00 - 18:00 Uhr<br>Samstag: 9:00 - 14:00 Uhr<br>Sonntag: geschlossen</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Standort</h3>
+                        <div class="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-map-marked-alt text-gray-400 text-5xl mx-auto mb-4"></i>
+                                <p class="text-gray-500 text-sm">Google Maps Integration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <div class="bg-black py-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-white mb-6 md:mb-0 md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">Bereit für einen makellosen Garten?</h3>
+                    <p class="text-gray-300">Vereinbaren Sie noch heute einen unverbindlichen Beratungstermin</p>
+                </div>
+                <button class="btn-secondary px-8 py-3 rounded-lg font-semibold">
+                    <i class="fas fa-calendar-alt mr-2"></i>Jetzt Termin buchen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Logo & Company -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center border-2 border-yellow-400">
+                            <i class="fas fa-leaf text-yellow-400"></i>
+                        </div>
+                        <span class="text-xl font-bold">Garten<span class="text-red-600">Profi</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Professionelle Gartenpflege und Außenreinigung für Privat- und Geschäftskunden</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Schnellzugriff</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-yellow-400 transition-colors">Startseite</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-yellow-400 transition-colors">Leistungen</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-yellow-400 transition-colors">Über uns</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-yellow-400 transition-colors">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Leistungen</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Gartenpflege</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Hochdruckreinigung</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Unkrautentfernung</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Gartenplanung</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Rechtliches</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Impressum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Datenschutz</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">AGB</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors">Cookie-Richtlinie</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 GartenProfi GmbH. Alle Rechte vorbehalten.</p>
+                <p class="mt-2">Entwickelt mit ❤️ für schöne Gärten</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <a href="#contact" class="floating-button w-14 h-14 bg-red-600 rounded-full flex items-center justify-center text-white">
+        <i class="fas fa-comments"></i>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(e.target) && 
+                e.target !== menuButton) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+        });
+        
+        // Contact form submission
+        document.querySelector('.contact-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form validation
+            let isValid = true;
+            this.querySelectorAll('[required]').forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('border-red-500');
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            
+            if (isValid) {
+                // Show success message
+                alert('Vielen Dank für Ihre Anfrage! Wir werden uns innerhalb von 24 Stunden bei Ihnen melden.');
+                this.reset();
+            } else {
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
+            }
+        });
+        
+        // Add scroll animation to elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe animated elements
+        document.querySelectorAll('.service-card, .testimonial-card').forEach(card => {
+            card.classList.add('opacity-0', 'translate-y-6');
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
